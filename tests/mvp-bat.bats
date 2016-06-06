@@ -13,11 +13,12 @@ odb=$BATS_TMPDIR/old-dirty-boolean
 setup() {
    mkdir -p "$odb"
    touch "$odb"/{eh,bee,see}
-   echo 'setup happen for each test' >&2
+   # echo 'setup happens for each test' >&2
 }
 
 teardown() {
-   echo 'ditto teardown' >&2
+   # echo 'teardown happens for each test' >&2
+   :
 }
 
 # custom user function
@@ -32,9 +33,9 @@ assert_success() {
 # BATS-run
 #   run < your test commnad >
 # then have access to
-#   $output (contets of STDOUT)
 #   $status (exit code)
-#   $lines  (lines array)
+#   $output (contets of STDOUT)
+#   $lines  (lines array of STDOUT)
 #     "${lines[0]}" is line-1
 
 @test "echo mvp" {
@@ -47,3 +48,36 @@ assert_success() {
    run ls -l1 "$odb"
    [ "${lines[0]}" == bee ]
 }
+
+@test "assert failure [ … ]" {
+   run false
+   [ "$status" -eq 1 ]
+}
+
+@test "assert failure [[ … ]]" {
+   run false
+   [[ $status -eq 1 ]]
+}
+
+@test "assert failure (( … ))" {
+   run false
+   (( status == 1 ))
+}
+
+@test "assert success [ … ]" {
+   run true
+   [ "$status" -eq 0 ]
+}
+
+@test "assert success [[ … ]]" {
+   run true
+   [[ $status -eq 0 ]]
+}
+
+@test "assert success (( … ))" {
+   run true
+   (( status == 0 ))
+}
+
+
+
