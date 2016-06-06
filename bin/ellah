@@ -7,7 +7,12 @@
 }
 
 # shellcheck source=../_bootstrap.bash
-source "$ELLAH_ROOT/_bootstrap.bash"
+source "${ELLAH_ROOT}/_bootstrap.bash" || {
+  echo 'ellah failed to bootsrap' >&2
+  exit 1
+}
+
+log debug 'bootstrapped'
 exit 0
 
 cmd=$1; shift

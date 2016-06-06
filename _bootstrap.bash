@@ -1,12 +1,10 @@
 # shellcheck disable=SC2148
 
 # shellcheck source=_core.bash
-source "${ELLAH_ROOT?}/_core.bash"
-[[ $? -eq 0 ]] || return 1
+source "${ELLAH_ROOT?}/_core.bash" || return 1
 
 # shellcheck source=_process-flags.bash
-source "$ELLAH_ROOT/_process-flags.bash"
-[[ $? -eq 0 ]] || return 1
+source "$ELLAH_ROOT/_process-flags.bash" || return 1
 
 log debug "ellah-options
 --------------------------------------------------------------------------------
@@ -21,5 +19,7 @@ skip-gpg       : $SKIP_GPG
 "
 
 use 'functions/demand'
-note "demanding that '$LABORATORY' is a safe laboratory"
+log debug "demanding that '$LABORATORY' is a safe laboratory"
 demand 'LABORATORY'
+
+return 0

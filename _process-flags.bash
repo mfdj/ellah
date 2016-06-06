@@ -36,3 +36,5 @@ export CLEAN_SOURCE
 export CLEAN_BUILD
 export SKIP_GPG
 export VERBOSE
+
+return 0

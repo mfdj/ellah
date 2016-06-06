@@ -1,7 +1,7 @@
 # shellcheck disable=SC2148
 
 set-context() {
-   local lab_dir="${LABORATORY}/${1}"
+   local lab_dir="${LABORATORY?}/${1?}"
 
    log debug "setting context to '$1' ($lab_dir)"
 
@@ -40,7 +40,8 @@ log() {
       3) color='\x1B[0;31m';; # Red
    esac
 
-   [[ $VERBOSE || $level -gt 0 ]] && echo -e "${color}${*}${color_off} ${grey}${context}${color_off}"
+   [[ $VERBOSE || $level -gt 0 ]] &&
+      echo -e "${color}${*}${color_off} ${grey}${context}${color_off}"
 
    # [[ $ellah_logfile ]] && echo "$@" >> "$ellah_logfile"
 }
@@ -50,29 +51,31 @@ note() {
 }
 
 use() {
-   log debug "requiring '$1'"
+   log debug "using '$1'"
 
    # shellcheck disable=SC1090
-   if ! source "${ELLAH_ROOT}/${1}.bash"; then
+   if ! source "${ELLAH_ROOT?}/${1?}.bash"; then
       log error "require '$1' failed"
       exit 1
    fi
 }
 
 run-module() {
-   local module=$1
+   local module=${1?}
    shift 1
 
    log debug "running '$module' with '$*'"
 
-   if ! "$ELLAH_ROOT/modules/$module.sh" "$@"; then
+   if ! "${ELLAH_ROOT?}/modules/$module.sh" "$@"; then
       log error "module '$module' run failed"
       exit 1
    fi
 }
 
-export -f note        && \
-export -f run-module  && \
-export -f log         && \
-export -f set-context && \
-export -f use         || exit 1
+export -f note        &&
+export -f run-module  &&
+export -f log         &&
+export -f set-context &&
+export -f use         || return 1
+
+return 0
