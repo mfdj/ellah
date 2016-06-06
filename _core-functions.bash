@@ -24,7 +24,7 @@ log() {
    local context="(${0##*/})"
    local grey='\x1B[0;37m'
 
-   case $1 in
+   case ${1?} in
       debug) level=0;;
        info) level=1; context='';;
        warn) level=2;;
@@ -32,6 +32,8 @@ log() {
    esac
 
    [[ $level ]] && shift || level=0
+
+   [[ $# -gt 0 ]] || return 1
 
    case $level in
       0) color_off=;;
@@ -41,8 +43,9 @@ log() {
    esac
 
    [[ $VERBOSE || $level -gt 0 ]] &&
-      echo -e "${color}${*}${color_off} ${grey}${context}${color_off}"
+      echo -e "${color}${*?}${color_off} ${grey}${context}${color_off}"
 
+   return 0
    # [[ $ellah_logfile ]] && echo "$@" >> "$ellah_logfile"
 }
 

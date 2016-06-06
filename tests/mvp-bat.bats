@@ -38,43 +38,43 @@ assert_success() {
 #   $lines  (lines array of STDOUT)
 #     "${lines[0]}" is line-1
 
-@test "echo mvp" {
+@test 'echo mvp' {
    run echo mvp
    assert_success
    [ "$output" == mvp ]
 }
 
-@test "ls odb" {
+@test 'ls odb' {
    run ls -l1 "$odb"
    [ "${lines[0]}" == bee ]
 }
 
-@test "assert failure [ … ]" {
+@test 'assert failure [ … ]' {
    run false
    [ "$status" -eq 1 ]
 }
 
-@test "assert failure [[ … ]]" {
+@test 'assert failure [[ … ]]' {
    run false
    [[ $status -eq 1 ]]
 }
 
-@test "assert failure (( … ))" {
+@test 'assert failure (( … ))' {
    run false
    (( status == 1 ))
 }
 
-@test "assert success [ … ]" {
+@test 'assert success [ … ]' {
    run true
    [ "$status" -eq 0 ]
 }
 
-@test "assert success [[ … ]]" {
+@test 'assert success [[ … ]]' {
    run true
    [[ $status -eq 0 ]]
 }
 
-@test "assert success (( … ))" {
+@test 'assert success (( … ))' {
    run true
    (( status == 0 ))
 }
