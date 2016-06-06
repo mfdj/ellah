@@ -10,7 +10,7 @@ COMMENT
    export LABORATORY=$PWD
 }
 
-# shellcheck source=_bootstrap.sh
-source "$ELLAH_ROOT/_bootstrap.sh"
+# shellcheck source=_bootstrap.bash
+source "$ELLAH_ROOT/_bootstrap.bash"
 
 run-module "$@"

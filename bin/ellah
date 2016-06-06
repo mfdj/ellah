@@ -6,8 +6,8 @@
    export LABORATORY=${ELLAH_LAB:-$HOME/.ellah-lab}
 }
 
-# shellcheck source=../_bootstrap.sh
-source "$ELLAH_ROOT/_bootstrap.sh"
+# shellcheck source=../_bootstrap.bash
+source "$ELLAH_ROOT/_bootstrap.bash"
 exit 0
 
 cmd=$1; shift
