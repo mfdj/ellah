@@ -16,7 +16,4 @@ source "${ELLAH_ROOT}/_bootstrap.bash" || {
   exit 1
 }
 
-# shellcheck source=_bootstrap.bash
-source "$ELLAH_ROOT/_bootstrap.bash" || exit 1
-
 run-module "$@"
