@@ -20,3 +20,5 @@ demand 'PHP_VERSION'
       exit 1
    }
 }
+
+exit 0

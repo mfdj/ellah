@@ -33,7 +33,7 @@ log() {
 
    [[ $level ]] && shift || level=0
 
-   [[ $# -gt 0 ]] || return 1
+   [[ $# -gt 0 ]] || return 1 # ensure there is a message
 
    case $level in
       0) color_off=;;
@@ -61,6 +61,8 @@ use() {
       log error "require '$1' failed"
       exit 1
    fi
+
+   return 0
 }
 
 run-module() {
