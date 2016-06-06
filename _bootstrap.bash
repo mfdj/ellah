@@ -1,10 +1,10 @@
 # shellcheck disable=SC2148
 
-# shellcheck source=_core.sh
-source "$ELLAH_ROOT/_core.sh" || exit 1
+# shellcheck source=_core.bash
+source "${ELLAH_ROOT?}/_core.bash" || exit 1
 
-# shellcheck source=_process-flags.sh
-source "$ELLAH_ROOT/_process-flags.sh" || exit 1
+# shellcheck source=_process-flags.bash
+source "$ELLAH_ROOT/_process-flags.bash" || exit 1
 
 log debug "ellah-options
 --------------------------------------------------------------------------------

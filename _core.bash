@@ -53,7 +53,7 @@ use() {
    log debug "requiring '$1'"
 
    # shellcheck disable=SC1090
-   if ! source "${ELLAH_ROOT}/${1}.sh"; then
+   if ! source "${ELLAH_ROOT}/${1}.bash"; then
       log error "require '$1' failed"
       exit 1
    fi

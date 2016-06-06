@@ -25,8 +25,8 @@ while [[ $index -le $# ]]; do
       esac
 
       # remove word_count out of positional list starting at index
-      (( $index > 1 )) && set -- "${@:1:((index - 1))}" "${@:((index + word_count)):$#}"
-      [[ $index == 1  ]] && set -- "${@:((index + word_count)):$#}";
+      (( $index > 1  )) && set -- "${@:1:((index - 1))}" "${@:((index + word_count)):$#}"
+      (( $index == 1 )) && set -- "${@:((index + word_count)):$#}"
    fi
 done
 
