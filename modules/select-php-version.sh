@@ -1,5 +1,5 @@
 
-require 'path-helpers'
+use 'path-helpers'
 
 php_path_symlink() {
    log debug "linking $1"

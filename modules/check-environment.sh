@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-require 'config-helpers'
-require 'resolve_semver'
+use 'config-helpers'
+use 'resolve_semver'
 
 [[ $env_name =~ ^[.0-9a-z\-]*$ ]] || {
    log error "invalid environment-name '$env_name'"

@@ -1,7 +1,7 @@
 #/usr/bin/env bash
 
-require 'php-version-helpers'
-require 'time-helpers'
+use 'php-version-helpers'
+use 'time-helpers'
 
 update_php_versions() {
    log info 'updating available php-versions'
