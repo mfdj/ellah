@@ -4,7 +4,7 @@ brew_ensure() {
    BREW_PREFIX=${BREW_PREFIX:-`brew --prefix`} # will be set once per script session
    local package=$1
 
-   if ! ls -l1 "$BREW_PREFIX/opt/" | grep -q "^$1$"; then
+   if ! ls -l1 "$(brew --prefix)/opt/$package" &> /dev/null; then
       (( $# != 1 )) && shift
       if [[ $VERBOSE ]]; then
          brew install "$@" || return 1

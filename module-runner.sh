@@ -16,4 +16,4 @@ source "${ELLAH_ROOT}/_bootstrap.bash" || {
   exit 1
 }
 
-run-module "$@"
+run_module "$@"

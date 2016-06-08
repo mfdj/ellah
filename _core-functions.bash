@@ -1,6 +1,6 @@
 # shellcheck disable=SC2148
 
-set-context() {
+set_context() {
    local lab_dir="${LABORATORY?}/${1?}"
 
    log debug "setting context to '$1' ($lab_dir)"
@@ -12,7 +12,7 @@ set-context() {
    }
 
    cd -P "$lab_dir" || {
-      log error "failed to set-context to '$1'"
+      log error "failed to set_context to '$1'"
       exit 1
    }
 }
@@ -65,7 +65,7 @@ use() {
    return 0
 }
 
-run-module() {
+run_module() {
    local module=${1?}
    shift 1
 
@@ -78,9 +78,9 @@ run-module() {
 }
 
 export -f note        &&
-export -f run-module  &&
+export -f run_module  &&
 export -f log         &&
-export -f set-context &&
+export -f set_context &&
 export -f use         || return 1
 
 return 0

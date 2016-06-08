@@ -13,15 +13,17 @@ source "${ELLAH_ROOT}/_bootstrap.bash" || {
 }
 
 log info 'bootstrapped'
+run_module 'core-dependencies'
+
 exit 0
 
 cmd=$1; shift
 
 case $cmd in
-   list*)  run-module 'list-environemnts';;
-   use*)   run-module 'use-environemnt';;
-   status) run-module 'environemnt-status';;
-   serve)  run-module 'serve';;
+   list*)  run_module 'list-environemnts';;
+   use*)   run_module 'use-environemnt';;
+   status) run_module 'environemnt-status';;
+   serve)  run_module 'serve';;
 esac
 
 note '
@@ -39,9 +41,9 @@ note '
       ellah run test.php with php5.6
 '
 
-# run-modules 'core-dependencies'
-# run-modules 'ensure-php-versions'
-# run-modules 'check-environment'
+# run_modules 'core-dependencies'
+# run_modules 'ensure-php-versions'
+# run_modules 'check-environment'
 
 # exit
 
@@ -50,6 +52,6 @@ note '
 #    return 0
 # }
 
-# run-modules 'ensure-php-src'
-# run-modules 'ensure-php-build'
-# run-modules 'select-php-version'
+# run_modules 'ensure-php-src'
+# run_modules 'ensure-php-build'
+# run_modules 'select-php-version'

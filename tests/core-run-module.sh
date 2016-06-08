@@ -2,19 +2,19 @@
 
 load 'test_helper'
 
-@test 'run-module without argument fails' {
-  run run-module
+@test 'run_module without argument fails' {
+  run run_module
   (( status == 1 ))
   [[ $output =~ 'parameter null or not set' ]]
 }
 
-@test 'run-module smoke works' {
-  run run-module smoke
+@test 'run_module smoke works' {
+  run run_module smoke
   (( status == 0 ))
 }
 
-@test 'run-module blow-up fails' {
-  run run-module blow-up
+@test 'run_module blow-up fails' {
+  run run_module blow-up
   (( status == 1 ))
   [[ $output ]]
 }
