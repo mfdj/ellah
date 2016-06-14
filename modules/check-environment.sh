@@ -1,22 +1,20 @@
 #!/usr/bin/env bash
 
-use 'config-helpers'
-use 'resolve_semver'
+use 'functions/config-helpers'
+use 'functions/resolve_semver'
 
-[[ $env_name =~ ^[.0-9a-z\-]*$ ]] || {
-   log error "invalid environment-name '$env_name'"
-   exit 1
-}
+envName=$1
+envPath=${LABORATORY}/environemnts/${envName}
+envConfig=$envPath/configuration
 
-log info "using '$env_name' environemnt"
+# [[ $envName =~ ^[.0-9a-z\-]*$ ]] || {
+#    log error "invalid environment-name '$envName'"
+#    exit 1
+# }
+
+log info "using '$envName' environemnt"
 
 # check path and load configuration
-env_path=${LABORATORY}/environemnts/${env_name}
-echo $env_path
-
-exit 0
-
-env_config=$env_path/configuration
 
 current_php_version=$(get_config_value php)
 parsed_apache_version=$(get_config_value apache)
@@ -43,4 +41,4 @@ exit 1
 
 log info "using php '$php_version'"
 
-env_php_path=${env_path}/${php_version}
+env_php_path=${envPath}/${php_version}
