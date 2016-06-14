@@ -17,3 +17,6 @@ source "${ELLAH_ROOT}/_bootstrap.bash" || {
 }
 
 run_module "$@"
+status=$?
+log debug "ran '$*' and exited with '$status'"
+exit $status

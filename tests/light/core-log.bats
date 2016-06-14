@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-load '../test_helper'
+load '../test-helper'
 
 levelKeyword=(debug info warn error)
 

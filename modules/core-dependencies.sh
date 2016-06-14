@@ -23,6 +23,6 @@ brew_ensure gnupg2                           || exit 1
 
 # NOTE: homebrew/dupes/make aka gmake
 
-[[ $VERBOSE ]] && echo # visual line-break
+[[ $VERBOSE ]] && echo || true # visual line-break
 
 exit 0
