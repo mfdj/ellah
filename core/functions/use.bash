@@ -8,8 +8,6 @@ use() {
       log error "using '$1' failed"
       exit 1
    fi
-
-   return 0
 }
 
 export -f use
