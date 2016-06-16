@@ -2,7 +2,7 @@
 
 load '../test-helper'
 
-levelKeyword=(debug info warn error)
+levelKeywords=(debug info warn error)
 
 @test 'log fails without arguments' {
    run log
@@ -10,14 +10,14 @@ levelKeyword=(debug info warn error)
 }
 
 @test 'log fails when single argument is a level-keyword' {
-   for level in "$levelKeyword"; do
+   for level in "$levelKeywords"; do
       run log "$level"
       (( status == 1 ))
    done
 }
 
-@test 'log succeeds when level-keyword has a message' {
-   for level in "$levelKeyword"; do
+@test 'log succeeds with level-keyword and a message' {
+   for level in "$levelKeywords"; do
       run log "$level" 'For the love of House'
       (( status == 0 ))
    done

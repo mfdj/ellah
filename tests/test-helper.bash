@@ -5,7 +5,9 @@
 export ELLAH_ROOT=$BATS_TEST_DIRNAME/../..
 export LABORATORY=$BATS_TMPDIR/lab
 
-source "${ELLAH_ROOT?}/_core-functions.bash" || {
-  echo 'could not load ellah-core' >&2
-  return 1
-}
+for coreFunction in "${ELLAH_ROOT?}"/core/functions/*.bash; do
+   source "$coreFunction" || {
+      echo "importing core function '$coreFunction' failed" >&2
+      return 1
+   }
+done

@@ -1,20 +1,33 @@
+#!/usr/bin/env bash
 
-[[ -d $env_php_path && ! $clean_build ]] && {
-   return 0
+# NOTES
+# • retrieve php-source
+# • compile configuration options
+# •
+
+phpsource=$(
+   set_context 'source-cache'
+   [[ -d php${PHP_VERSION?} ]]
+   echo $PWD/php${PHP_VERSION}
+) || {
+   log error 'could not resolve php-source'
 }
 
-php_src_path=${LABORATORY}/source-cache/php${php_version}
+echo "phpsource: $phpsource"
+exit 0
 
-log info "Building $php_version from $php_src_path"
+phpsource=${LABORATORY?}/source-cache/php${PHP_VERSION?}
+
+log info "Building $php_version from $phpsource"
 
 clean_path "$env_php_path"
 
-if [[ $skip_gpg ]]; then
+if [[ $SKIP_GPG ]]; then
    log debug 'skipping gpg verify'
 else
    log debug 'verifying archive'
-   gpg2 --verify "$php_src_path/signing-key.asc" "$php_src_path/archive.tar.gz" || {
-      log error "could not verify '$php_src_path/archive.tar.gz' with '$php_src_path/signing-key.asc"
+   gpg2 --verify "$phpsource/signing-key.asc" "$phpsource/archive.tar.gz" || {
+      log error "could not verify '$phpsource/archive.tar.gz' with '$phpsource/signing-key.asc"
       return 1
    }
 fi
@@ -24,7 +37,7 @@ log debug "Decompressing php-source in '$env_path/.tmp'"
    ensure_path "$env_path/.tmp"
    cd "$env_path/.tmp"
    rm -rf php-*
-   tar xf "${php_src_path}/archive.tar.gz"
+   tar xf "${phpsource}/archive.tar.gz"
    mv php-*/* "$env_php_path"/
    rm -rf php-*
 )

@@ -1,13 +1,15 @@
 # shellcheck disable=SC2148
 
 # shellcheck source=_core.bash
-source "${ELLAH_ROOT?}/_core-functions.bash" || {
-  echo 'core-functions failed' >&2
-  return 1
-}
+for fn in "${ELLAH_ROOT?}"/core/functions/*.bash; do
+   source "$fn" || {
+      echo "importing core function '$fn' failed" >&2
+      return 1
+   }
+done
 
 # shellcheck source=_process-flags.bash
-source "$ELLAH_ROOT/_process-flags.bash" || {
+source "$ELLAH_ROOT/core/process-flags.bash" || {
   echo 'process-flags failed' >&2
   return 1
 }
