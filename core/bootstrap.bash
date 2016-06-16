@@ -1,14 +1,14 @@
 # shellcheck disable=SC2148
 
-# shellcheck source=_core.bash
 for fn in "${ELLAH_ROOT?}"/core/functions/*.bash; do
+   # shellcheck disable=SC1090
    source "$fn" || {
       echo "importing core function '$fn' failed" >&2
       return 1
    }
 done
 
-# shellcheck source=_process-flags.bash
+# shellcheck source=process-flags.bash
 source "$ELLAH_ROOT/core/process-flags.bash" || {
   echo 'process-flags failed' >&2
   return 1
@@ -29,5 +29,3 @@ skip-gpg       : $SKIP_GPG
 use 'functions/demand'
 log debug "demanding that '$LABORATORY' is a safe laboratory"
 demand 'LABORATORY'
-
-return 0
