@@ -7,4 +7,6 @@ demand() {
       log error "'$varname' variable is empty"
       exit 1
    }
+
+   return 0
 }
