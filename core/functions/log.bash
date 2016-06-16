@@ -32,4 +32,4 @@ log() {
    # [[ $ellah_logfile ]] && echo "$@" >> "$ellah_logfile"
 }
 
-export -f log || return 1
+export -f log

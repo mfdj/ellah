@@ -14,4 +14,4 @@ run_module() {
    fi
 }
 
-export -f run_module || return 1
+export -f run_module

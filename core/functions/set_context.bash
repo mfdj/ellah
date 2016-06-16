@@ -17,4 +17,4 @@ set_context() {
    }
 }
 
-export -f set_context || return 1
+export -f set_context

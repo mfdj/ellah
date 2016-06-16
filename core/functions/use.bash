@@ -12,4 +12,4 @@ use() {
    return 0
 }
 
-export -f use || return 1
+export -f use

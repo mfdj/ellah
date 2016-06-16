@@ -4,4 +4,4 @@ note() {
    : # no-op
 }
 
-export -f note || return 1
+export -f note
