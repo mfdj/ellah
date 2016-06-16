@@ -11,4 +11,5 @@ done
 echo "ELLAH_ROOT: '$ELLAH_ROOT'"
 echo "LABORATORY: '$LABORATORY'"
 echo "ls:"
+log
 ls -la

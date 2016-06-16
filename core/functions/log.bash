@@ -7,7 +7,12 @@ log() {
    local context="(${0##*/})"
    local grey='\x1B[0;37m'
 
-   case ${1?} in
+   (( $# == 0 )) && {
+      echo 'log: expecting at least one argument' >&2
+      return
+   }
+
+   case $1 in
       debug) level=0;;
        info) level=1; context='';;
        warn) level=2;;
@@ -16,7 +21,10 @@ log() {
 
    [[ $level ]] && shift || level=0
 
-   [[ $# -gt 0 ]] || return 1 # ensure there is a message
+   [[ $# -gt 0 ]] || {
+      echo 'log: expecting a message' >&2
+      return
+   }
 
    case $level in
       0) color_off=;;

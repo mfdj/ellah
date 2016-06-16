@@ -4,15 +4,19 @@ load '../test-helper'
 
 levelKeywords=(debug info warn error)
 
-@test 'log fails without arguments' {
+@test 'log warns without arguments' {
    run log
-   (( status == 1 ))
+   (( status == 0 ))
+   (( ${#lines[@]} == 1 ))
+   grep '^log: expecting at least one argument$' <<< "${lines[0]}"
 }
 
-@test 'log fails when single argument is a level-keyword' {
+@test 'log warns when single argument is a level-keyword' {
    for level in "$levelKeywords"; do
       run log "$level"
-      (( status == 1 ))
+      (( status == 0 ))
+      (( ${#lines[@]} == 1 ))
+      grep '^log: expecting a message$' <<< "${lines[0]}"
    done
 }
 
