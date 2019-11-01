@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-<< 'COMMENT'
-   devlopment-only shim to bootstrap and run modules directly.
-COMMENT
+##
+## devlopment-only shim to bootstrap and run modules directly.
+##
 
 # shellcheck disable=2155
 {
