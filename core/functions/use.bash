@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 use() {
    log debug "using '$1'"
@@ -9,5 +9,8 @@ use() {
       exit 1
    fi
 }
-
 export -f use
+
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+  use "${@}"
+fi

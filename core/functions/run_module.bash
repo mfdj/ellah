@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 run_module() {
    local module=${1?}
@@ -13,5 +13,8 @@ run_module() {
       exit 1
    fi
 }
-
 export -f run_module
+
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+  run_module "${@}"
+fi

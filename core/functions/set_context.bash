@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 set_context() {
    local context=${LABORATORY?}/${1?}
@@ -16,5 +16,8 @@ set_context() {
       exit 1
    }
 }
-
 export -f set_context
+
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+  set_context "${@}"
+fi

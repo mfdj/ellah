@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 log() {
    local level
@@ -37,7 +37,9 @@ log() {
       echo -e "${color}${*?}${color_off} ${grey}${context}${color_off}"
 
    return 0
-   # [[ $ellah_logfile ]] && echo "$@" >> "$ellah_logfile"
 }
-
 export -f log
+
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+  log "${@}"
+fi
