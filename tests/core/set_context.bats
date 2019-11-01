@@ -3,7 +3,7 @@
 load '../test-helper'
 
 setup() {
-   rm -rf ${LABORATORY}/*
+   rm -rf ${LABORATORY:?}/*
 }
 
 @test 'set_context fails without context paramter (argument 1)' {
