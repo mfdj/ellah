@@ -12,7 +12,7 @@ levelKeywords=(debug info warn error)
 }
 
 @test 'log warns when single argument is a level-keyword' {
-   for level in "$levelKeywords"; do
+   for level in "${levelKeywords[@]}"; do
       run log "$level"
       (( status == 0 ))
       (( ${#lines[@]} == 1 ))
@@ -21,7 +21,7 @@ levelKeywords=(debug info warn error)
 }
 
 @test 'log succeeds with level-keyword and a message' {
-   for level in "$levelKeywords"; do
+   for level in "${levelKeywords[@]}"; do
       run log "$level" 'For the love of House'
       (( status == 0 ))
    done
