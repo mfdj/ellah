@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 clean_path() {
    remove_path "$@"

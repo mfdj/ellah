@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 ensure_phpdotnet_file() {
    local remote_file=$1

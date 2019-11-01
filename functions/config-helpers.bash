@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 config_get() {
    grep "^$1: " "$ENV_CONFIG" | awk '{print $2}'

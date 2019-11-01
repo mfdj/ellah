@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 cask_ensure() {
    brew cask install $1 2> /dev/null

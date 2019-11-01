@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 index=1
 while [[ $index -le $# ]]; do

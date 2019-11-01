@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 brew_ensure() {
    BREW_PREFIX=${BREW_PREFIX:-`brew --prefix`} # will be set once per script session

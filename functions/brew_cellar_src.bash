@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 brew_cellar_src() {
    BREW_PREFIX=${BREW_PREFIX:-`brew --prefix`}

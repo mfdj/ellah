@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 prepend_intyversion() {
    awk -F. '{ printf "%03d%03d%03d %s\n", $1, $2, $3, $1"."$2"."$3 }'

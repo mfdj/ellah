@@ -1,4 +1,4 @@
-# shellcheck disable=SC2148
+#!/bin/bash
 
 for fn in "${ELLAH_ROOT?}"/core/functions/*.bash; do
    # shellcheck disable=SC1090
