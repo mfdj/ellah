@@ -1,13 +1,13 @@
 #!/bin/bash
 
 run_module() {
-   local module=${1?}
+   local module=${1:?}
    local status
    shift 1
 
    log debug "running '$module' with parameters '$*'"
 
-   if ! "${ELLAH_ROOT?}/modules/$module.sh" "$@"; then
+   if ! bash "${ELLAH_ROOT:?}/modules/$module.sh" "$@"; then
       status=$?
       log error "module '$module' run failed with status '$status'"
       exit 1
