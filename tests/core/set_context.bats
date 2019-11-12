@@ -12,7 +12,7 @@ setup() {
    [[ $output =~ 'parameter null or not set' ]]
 }
 
-@test 'set_context fails when $LABORATORY is not set' {
+@test 'set_context fails when \$LABORATORY is not set' {
    unset LABORATORY
 
    run set_context 'will-fail-anyway'
@@ -23,6 +23,7 @@ setup() {
 
 @test 'set_context will work but will emit a warning when log function is not set' {
    unset log
+   export PATH=/bin # because /usr/bin/log is a thing
 
    run set_context 'smoke'
    (( status == 0 ))

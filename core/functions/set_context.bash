@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set_context() {
-   local context=${LABORATORY?}/${1?}
+   local context=${LABORATORY:?}/${1:?}
 
    log debug "setting context to '$1' ($context)"
 
