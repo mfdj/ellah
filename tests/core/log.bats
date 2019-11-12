@@ -8,7 +8,7 @@ levelKeywords=(debug info warn error)
    run log
    (( status == 0 ))
    (( ${#lines[@]} == 1 ))
-   grep '^log: expecting at least one argument$' <<< "${lines[0]}"
+   grep '^log: expecting at least one argument$' <<< "$output"
 }
 
 @test 'log warns when single argument is a level-keyword' {
@@ -20,29 +20,26 @@ levelKeywords=(debug info warn error)
    done
 }
 
-@test 'log succeeds with level-keyword and a message' {
+@test 'log writes a message to stdout for non-debug messages' {
    for level in "${levelKeywords[@]}"; do
+      [[ $level = 'debug' ]] && continue
+
       run log "$level" 'For the love of House'
       (( status == 0 ))
+      grep 'For the love of House' <<< "${lines[0]}"
    done
 }
 
-@test 'log debug outputs as expected' {
-   run log debug 'Make BASH great again'
-   [[ -z $output ]]
-
-   export VERBOSE=true
-   run log debug 'Make BASH great again'
-   [[ $output =~ ^(m|M)ake\ BASH\ great\ again ]]
-}
-
-@test 'log is debug if no level-keyword provided' {
-   run log 'Daydream Nation'
+@test 'log debug is default level and is silent by default' {
+   run log 'I Chase Rivers'
    (( status == 0 ))
    [[ -z $output ]]
+
+   run log debug 'I Chase Rivers'
+   [[ -z $output ]]
 }
 
-@test 'log debug writes to stdout when VERBOSE is true' {
+@test 'log debug outputs when VERBOSE is true' {
    export VERBOSE=true
 
    run log 'I Chase Rivers'
@@ -50,14 +47,14 @@ levelKeywords=(debug info warn error)
    [[ $output =~ 'I Chase Rivers' ]]
 
    run log debug 'I Chase Rivers'
-   (( status == 0 ))
    [[ $output =~ 'I Chase Rivers' ]]
 }
 
 @test 'log handles barewords' {
-   export VERBOSE=true
-
-   run log debug Something Good Can Work Remix
-   (( status == 0 ))
-   [[ $output =~ 'Something Good Can Work Remix' ]]
+   for level in "${levelKeywords[@]}"; do
+      VERBOSE=true
+      run log "$level" Something Good Can Work Remix
+      (( status == 0 ))
+      [[ $output =~ 'Something Good Can Work Remix' ]]
+   done
 }
