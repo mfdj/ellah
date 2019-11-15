@@ -17,6 +17,8 @@ load '../test-helper'
 
 @test 'use will work but will emit a warning when log function is not set' {
    unset log
+   export PATH=/bin # because /usr/bin/log is a thing
+
    run use 'functions/smoke'
    (( status == 0 ))
    [[ $output =~ 'log: command not found' ]]
