@@ -9,5 +9,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run bats
+
+    - name: Install bats-core from source
+      run: |
+        git clone https://github.com/bats-core/bats-core.git
+        cd bats-core
+        ./install.sh /usr/local
+
+    - name: Run BATS suite
       run: bats -r tests
