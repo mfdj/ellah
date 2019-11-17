@@ -15,13 +15,13 @@ xcode-select --install 2> /dev/null || {
 
 log debug " ✔ homebrew"
 
-brew_ensure autoconf                         &&
-brew_ensure libiconv homebrew/dupes/libiconv &&
-brew_ensure make homebrew/dupes/make         &&
-brew_ensure md5sha1sum                       &&
-brew_ensure gnupg2                           || exit 1
+brew_ensure autoconf     &&
+brew_ensure libiconv     &&
+brew_ensure make         &&
+brew_ensure md5sha1sum   &&
+brew_ensure gnupg2       || exit 1
 
-# NOTE: homebrew/dupes/make aka gmake
+# NOTE: make is GNU make, linked as gmake
 
 [[ $VERBOSE ]] && echo || true # visual line-break
 

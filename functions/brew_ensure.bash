@@ -17,3 +17,8 @@ brew_ensure() {
 
    return 0
 }
+export -f brew_ensure
+
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+  brew_ensure "${@}"
+fi
