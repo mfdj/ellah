@@ -1,6 +1,6 @@
 name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -10,11 +10,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Install bats-core from source
-      run: |
-        git clone https://github.com/bats-core/bats-core.git
-        cd bats-core
-        ./install.sh /usr/local
+    - name: Setup BATS
+      uses: mig4/setup-bats@master
+      with:
+        bats-version: 1.1.0
 
     - name: Run BATS suite
       run: bats -r tests
