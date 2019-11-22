@@ -7,7 +7,7 @@
 # shellcheck disable=2155
 {
    export ELLAH_ROOT=$(cd "$(dirname "$0")"/.. && pwd -P)
-   export LABORATORY=$PWD
+   export LABORATORY=${ELLAH_LAB:-$HOME/.ellah-lab}
 }
 
 # shellcheck source=_bootstrap.bash

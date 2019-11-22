@@ -29,3 +29,4 @@ skip-gpg       : $SKIP_GPG
 use 'functions/demand'
 log debug "demanding that '$LABORATORY' is a safe laboratory"
 demand 'LABORATORY'
+mkdir -p "$LABORATORY/environments"

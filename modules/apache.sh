@@ -1,6 +1,6 @@
 
-echo 'This module is out of sync and should not be run'
-return 0
+log info 'This module is out of sync and should not be run'
+exit 0
 
 echo
 echo '---------- download apache source ----------'

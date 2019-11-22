@@ -15,8 +15,6 @@ source "${ELLAH_ROOT}/core/bootstrap.bash" || {
 log info 'bootstrapped'
 run_module 'core-dependencies'
 
-exit 0
-
 cmd=$1; shift
 
 case $cmd in
@@ -24,6 +22,7 @@ case $cmd in
    use*)   run_module 'use-environemnt';;
    status) run_module 'environemnt-status';;
    serve)  run_module 'serve';;
+   *)      log error "ellah could not match cmd: $cmd"
 esac
 
 note '

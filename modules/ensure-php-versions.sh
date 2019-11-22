@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
 use 'php-version-helpers'
 use 'time-helpers'
