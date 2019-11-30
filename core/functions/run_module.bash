@@ -7,8 +7,9 @@ run_module() {
 
    log debug "running '$module' with parameters '$*'"
 
-   if ! bash "${ELLAH_ROOT:?}/modules/$module.sh" "$@"; then
-      status=$?
+   bash "${ELLAH_ROOT:?}/modules/$module.sh" "$@"
+   status=$?
+   if ((status > 0)); then
       log error "module '$module' run failed with status '$status'"
       exit 1
    fi
