@@ -22,7 +22,7 @@ case $cmd in
    use*)   run_module 'use-environemnt';;
    status) run_module 'environemnt-status';;
    serve)  run_module 'serve';;
-   *)      log error "ellah could not match cmd: $cmd"
+   *)      log error "ellah could not match cmd: '$cmd'"
 esac
 
 note '

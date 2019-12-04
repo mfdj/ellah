@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env ellah-kit
+# shellcheck shell=bash
 
 log() {
    "${ELLAH_ROOT:?}/deps/colored-logger/colored-logger.bash" "$@"

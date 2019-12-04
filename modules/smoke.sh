@@ -10,6 +10,6 @@ while (( $# > 0 )); do
 done
 echo "ELLAH_ROOT: '$ELLAH_ROOT'"
 echo "LABORATORY: '$LABORATORY'"
-echo "ls:"
 log debug some debug info
+echo "ls:"
 ls -la

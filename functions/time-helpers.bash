@@ -16,7 +16,7 @@ since_last_modified() {
            *)        period=      ;;
    esac
 
-   if (( $period > 0 )); then
+   if (( period > 0 )); then
       echo "$(( (now - modified) / period ))"
    else
       echo "$(( now - modified ))"
