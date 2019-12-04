@@ -1,10 +1,21 @@
 #!/usr/bin/env bats
 
-# NOTE: if test-helper is not used then custom commands like 'run_module' will cause the test to
-# exit with a status of (int) 127 which is a special BASH "command not found" status
 load '../test-helper'
 
-@test 'core-dependencies smoke test' {
-  run run_module 'core-dependencies'
-  (( status == 0 ))
+@test 'core-dependencies runs if brew' {
+   run command -v brew
+   (( status == 0 ))
+
+   run_ellah_module 'core-dependencies'
+   (( status == 0 ))
+}
+
+@test 'core-dependencies does not run if brew is missing' {
+   export PATH="/bin:/usr/bin:$ELLAH_ROOT/bin/"
+
+   run command -v brew
+   (( status == 1 ))
+
+   run_ellah_module 'core-dependencies'
+   (( status == 1 ))
 }

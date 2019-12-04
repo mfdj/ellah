@@ -1,15 +1,19 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ellah-kit
+# shellcheck shell=bash
 
 use 'functions/brew_ensure'
+use 'core/functions/log'
 
-xcode-select --install 2> /dev/null || {
-   log debug " ✔ xcode-select"
+command -v xcode-select > /dev/null && {
+   xcode-select --install 2> /dev/null || {
+      log debug " ✔ xcode-select"
+   }
 }
 
 ! command -v brew > /dev/null && {
    log warn 'Please install homebrew from http://brew.sh'
-   log info "'open http://brew.sh' copied to clipboard (paste to execute)"
-   echo 'open http://brew.sh' | pbcopy
+   log info "'open http://brew.sh'" # copied to clipboard (paste to execute)
+   # echo 'open http://brew.sh' | pbcopy
    exit 1
 }
 
