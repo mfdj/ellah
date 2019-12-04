@@ -4,11 +4,8 @@
 
 export ELLAH_ROOT=$BATS_TEST_DIRNAME/../..
 export LABORATORY=$BATS_TMPDIR/lab
+export PATH="$ELLAH_ROOT/bin:$PATH"
 
-for coreFunction in "${ELLAH_ROOT?}"/core/functions/*.bash; do
-   # shellcheck disable=SC1090
-   source "$coreFunction" || {
-      echo "importing core function '$coreFunction' failed" >&2
-      return 1
-   }
-done
+run_ellah_module() {
+   run "$ELLAH_ROOT/modules/$1.sh"
+}
