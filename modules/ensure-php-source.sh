@@ -1,5 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ellah-kit
+# shellcheck shell=bash
 
+use 'core/functions/log'
+use 'core/functions/set_context'
 use 'functions/demand'
 use 'functions/ensure_phpdotnet_file'
 
