@@ -1,4 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ellah-kit
+# shellcheck shell=bash
+
+use 'core/functions/log'
+
+exit_status=${1:-13}
 
 echo 'smoke-test'
 echo "all-arguments: $*"
@@ -8,8 +13,12 @@ while (( $# > 0 )); do
    shift
    ((position++))
 done
+
+log debug some debug
+log info some info
+
 echo "ELLAH_ROOT: '$ELLAH_ROOT'"
 echo "LABORATORY: '$LABORATORY'"
-log debug some debug info
-echo "ls:"
-ls -la
+tree "$ELLAH_ROOT" "$LABORATORY" -d -L 2
+
+exit $exit_status

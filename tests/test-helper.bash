@@ -4,9 +4,11 @@
 # up to reach ellah-root eg. `ellah-root/tests/something/this.bat`
 # or `ellah-root/blerg/bloop/whatevs.bat`
 export ELLAH_ROOT=$BATS_TEST_DIRNAME/../..
-export LABORATORY=$BATS_TMPDIR/lab
+export ELLAH_LAB=$BATS_TMPDIR/lab
 export PATH="$ELLAH_ROOT/bin:$PATH"
 
-run_ellah_module() {
-   run "$ELLAH_ROOT/modules/$1.sh"
+run_ellah() {
+   local path=$1
+   shift
+   run "$ELLAH_ROOT/$path"* "$@"
 }

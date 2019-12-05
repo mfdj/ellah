@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env ellah-kit
+# shellcheck shell=bash
+
+use 'core/functions/log'
 
 run_module() {
    local module=${1:?}
@@ -6,12 +9,12 @@ run_module() {
    shift 1
 
    log debug "running '$module' with parameters '$*'"
-
    bash "${ELLAH_ROOT:?}/modules/$module.sh" "$@"
    status=$?
+
    if ((status > 0)); then
       log error "module '$module' run failed with status '$status'"
-      exit 1
+      return $status
    fi
 }
 export -f run_module

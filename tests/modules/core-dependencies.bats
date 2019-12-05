@@ -6,7 +6,7 @@ load '../test-helper'
    run command -v brew
    (( status == 0 ))
 
-   run_ellah_module 'core-dependencies'
+   run_ellah 'modules/core-dependencies'
    (( status == 0 ))
 }
 
@@ -16,6 +16,6 @@ load '../test-helper'
    run command -v brew
    (( status == 1 ))
 
-   run_ellah_module 'core-dependencies'
+   run_ellah 'modules/core-dependencies'
    (( status == 1 ))
 }

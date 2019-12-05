@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env ellah-kit
+# shellcheck shell=bash
+
+use 'core/functions/log'
 
 set_context() {
    local context=${LABORATORY:?}/${1:?}
