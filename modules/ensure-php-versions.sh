@@ -1,23 +1,20 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ellah-kit
+# shellcheck shell=bash
 
-use 'php-version-helpers'
-use 'time-helpers'
+use 'core/functions/log' # NOTE: while conceptually correct core/functions/set_context actually overwrites by importing (the same) log
+use 'core/functions/set_context'
+use 'functions/time-helpers'
+use 'functions/update_php_versions'
 
-update_php_versions() {
-   log info 'updating available php-versions'
+log 'Ensuring php-versions exist'
+set_context 'available-versions'
 
-   get_php_versions 5
-   get_php_versions 7
-
-   (  cat ./php5.json | json_to_php_hash | extract_versions
-      cat ./php7.json | json_to_php_hash | extract_versions
-   ) | prepend_intyversion | sort_and_exclude_before_min_version > ./php-list
-}
-
-context 'available-versions'
-
-[[ -f ./php-list ]] || update_php_versions
-
-[[ $(since_last_modified ./php-list days) > 1 ]] && update_php_versions
-
-exit 0
+if ! [[ -f ./php-versions ]]; then
+   log 'Creating php-versions'
+   update_php_versions
+elif (( $(since_last_modified ./php-versions days) > 1 )); then
+   log 'Updating php-versions'
+   update_php_versions
+else
+   log 'php-versions exists'
+fi
