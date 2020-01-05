@@ -20,5 +20,5 @@ brew_ensure() {
 export -f brew_ensure
 
 if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
-  brew_ensure "${@}"
+   brew_ensure "${@}"
 fi

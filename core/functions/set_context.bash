@@ -22,5 +22,5 @@ set_context() {
 export -f set_context
 
 if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
-  set_context "${@}"
+   set_context "${@}"
 fi
