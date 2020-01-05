@@ -3,18 +3,18 @@
 ensure_phpdotnet_file() {
    local remote_file=$1
    local local_file=$2
-   local silent_flag='--silent'
-
-   [[ $VERBOSE ]] && silent_flag=''
+   local url="https://www.php.net/get/${remote_file}/from/this/mirror"
 
    [[ -f $local_file ]] || {
-      curl $silent_flag --location --fail --output "$local_file" "https://php.net/get/${remote_file}/from/this/mirror"
+      curl --silent --location --fail --output "$local_file" "$url"
 
       if [[ -f $local_file ]]; then
          log info "Downloaded '$remote_file'"
       else
-         curl $silent_flag --location --head "https://php.net/get/${remote_file}/from/this/mirror" > ensure_phpdotnet_file.log
-         log error "Failed to download '$remote_file' see '$PWD/ensure_phpdotnet_file.log'"
+         echo "### $url" >> ensure_phpdotnet_file.log
+         curl --silent --location --head "$url" >> ensure_phpdotnet_file.log
+         log error "Failed to download '$remote_file'"
+         log " • see '$PWD/ensure_phpdotnet_file.log'"
       fi
    }
 }

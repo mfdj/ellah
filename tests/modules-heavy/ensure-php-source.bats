@@ -7,6 +7,7 @@ validVersions=(5.6.20 7.4.0)
 @test 'ensure-php-source fails without PHP_VERSION' {
    run_ellah 'modules/ensure-php-source'
    (( status == 1 ))
+   [[ $output =~ "'PHP_VERSION' variable is empty" ]]
 }
 
 @test 'ensure-php-source fails with invalid PHP_VERSION' {
