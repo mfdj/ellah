@@ -1,5 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ellah-kit
+# shellcheck shell=bash
 
+use 'functions/demand'
+use 'core/functions/log'
+
+demand 'LABORATORY'
 log info 'environments'
 
 find "$LABORATORY/environments" -maxdepth 1 -exec basename {} \; \
