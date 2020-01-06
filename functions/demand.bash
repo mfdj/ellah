@@ -3,10 +3,8 @@
 demand() {
    local varname=${1?}
 
-   [[ -z ${!varname} ]] && {
+   if [[ -z ${!varname} ]]; then
       log error "'$varname' variable is empty"
       exit 1
-   }
-
-   return 0
+   fi
 }

@@ -12,9 +12,11 @@ set_context 'available-versions'
 if ! [[ -f ./php-versions ]]; then
    log 'Creating php-versions'
    update_php_versions
+
 elif (( $(since_last_modified ./php-versions days) > 1 )); then
    log 'Updating php-versions'
    update_php_versions
+
 else
    log 'php-versions exists'
 fi

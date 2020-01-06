@@ -23,7 +23,7 @@ brew_ensure autoconf     &&
 brew_ensure libiconv     &&
 brew_ensure make         &&
 brew_ensure md5sha1sum   &&
-brew_ensure gnupg2       || exit 1
+brew_ensure gpg2         || exit 1
 
 # NOTE: make is GNU make, linked as gmake
 

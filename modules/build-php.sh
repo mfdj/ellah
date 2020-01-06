@@ -1,46 +1,50 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ellah-kit
+# shellcheck shell=bash
 
-# NOTES
-# • retrieve php-source
-# • compile configuration options
-# •
+use 'core/functions/log'
+use 'core/functions/set_context'
+use 'functions/brew_ensure'
+use 'functions/demand'
+use 'functions/path-helpers/clean_path'
+use 'functions/path-helpers/ensure_path'
 
-phpsource=$(
-   set_context 'source-cache'
-   [[ -d php${PHP_VERSION?} ]]
-   echo $PWD/php${PHP_VERSION}
-) || {
+demand 'PHP_VERSION'
+
+#phpsource=${LABORATORY?}/source-cache/${PHP_VERSION?}
+set_context 'source-cache/php'
+phpsource="${PWD}/${PHP_VERSION}"
+log "phpsource: $phpsource"
+
+if ! [[ -d $phpsource ]]; then
    log error 'could not resolve php-source'
-}
+   exit 1
+fi
 
-echo "phpsource: $phpsource"
-exit 0
-
-phpsource=${LABORATORY?}/source-cache/php${PHP_VERSION?}
-
-log info "Building $php_version from $phpsource"
-
-clean_path "$env_php_path"
+log info "Building $PHP_VERSION from $phpsource"
 
 if [[ $SKIP_GPG ]]; then
    log debug 'skipping gpg verify'
 else
    log debug 'verifying archive'
-   gpg2 --verify "$phpsource/signing-key.asc" "$phpsource/archive.tar.gz" || {
+   # https://www.php.net/distributions/php-keyring.gpg
+   # gpg --import php-keyring.gpg
+   # gpg --list-keys
+   # gpg --edit-key CBAF69F173A0FEA4B537F470D66C9593118BCCB6
+   gpg --verify "$phpsource/signing-key.asc" "$phpsource/archive.tar.gz" || {
       log error "could not verify '$phpsource/archive.tar.gz' with '$phpsource/signing-key.asc"
-      return 1
+      exit 1
    }
 fi
 
-log debug "Decompressing php-source in '$env_path/.tmp'"
-(
-   ensure_path "$env_path/.tmp"
-   cd "$env_path/.tmp"
-   rm -rf php-*
-   tar xf "${phpsource}/archive.tar.gz"
-   mv php-*/* "$env_php_path"/
-   rm -rf php-*
-)
+log debug "Decompressing php-source in '$phpsource/.build'"
+
+set_context "builds/php"
+
+cp "${phpsource}/archive.tar.gz" "${PHP_VERSION}archive.tar.gz"
+tar xf "${PHP_VERSION}archive.tar.gz"
+rm "${PHP_VERSION}archive.tar.gz"
+rm -rf "${PHP_VERSION}"
+mv "php-${PHP_VERSION}" "${PHP_VERSION}"
 
 cleanup_php_build() {
    log info "Cleanup PHP Build"
@@ -106,13 +110,13 @@ brew link libxml2 --force
 # • xmlreader
 # • xmlwriter
 
-log info "Configuring $env_php_path"
+log info "Configuring $PHP_VERSION"
 
 (
-   cd "$env_php_path"
+   set_context "builds/php/${PHP_VERSION}"
 
    ./configure \
-      --prefix=${env_php_path} \
+      --prefix=${PWD} \
       --disable-cgi \
       --disable-short-tags \
       --with-curl=${curl_source} \
@@ -144,7 +148,7 @@ log info "Configuring $env_php_path"
    # --with-readline had problem on my system; --with-libedit is an alternative that seems to work
 
    # --with-apxs2=${apache_build_path}/bin/apxs \
-   # --with-config-file-path=${env_php_path} \
+   # --with-config-file-path=${PHP_VERSION} \
 
    [[ $? == 0 ]] || {
       log error "Configuring failed"
@@ -153,7 +157,7 @@ log info "Configuring $env_php_path"
    }
 
    log debug "gmake -j $(sysctl -n hw.ncpu)"
-   gmake -j $(sysctl -n hw.ncpu) || {
+   gmake -j "$(sysctl -n hw.ncpu)" || {
       log error 'gmake failed'
       cleanup_php_build
       return 1
@@ -168,11 +172,11 @@ log info "Configuring $env_php_path"
    cp etc/php-fpm.d/www.conf{.default,}
 )
 
-extension_dir=$("$env_php_path/bin/php" -n -i | grep ^extension_dir | sed s/'.* => '/''/)
+extension_dir=$("$PHP_VERSION/bin/php" -n -i | grep ^extension_dir | sed s/'.* => '/''/)
 ensure_path $extension_dir
 
 # build pcntl extension
-# if [[ ! -f $extension_dir/pcntl.so && ((php_version[0] != 7)) ]]; then
+# if [[ ! -f $extension_dir/pcntl.so && ((PHP_VERSION[0] != 7)) ]]; then
 #   cd ext/pcntl/ \
 #     && phpize \
 #     && ./configure \
@@ -182,12 +186,12 @@ ensure_path $extension_dir
 # fi
 
 # if [[ ! -f $extension_dir/mcrypt.so ]]; then
-#   cd "$env_php_path/ext/mcrypt/" \
+#   cd "$PHP_VERSION/ext/mcrypt/" \
 #     && phpize \
 #     && ./configure \
-#          --prefix=${env_php_path} \
+#          --prefix=${PHP_VERSION} \
 #          --with-mcrypt=${mcrypt_source} \
-#          --with-php-config=${env_php_path}/bin/php-config \
+#          --with-php-config=${PHP_VERSION}/bin/php-config \
 #     && make \
 #     && cp modules/mcrypt.so $extension_dir
 #   cd -
